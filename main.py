@@ -25,7 +25,7 @@ while True:
     postingan = input("masukkan judul postingan baru dan ketik 'selesai' untuk berhenti: ")
     if postingan.lower() == "selesai":
         break
-    user_dashboard['postingan'].append(postingan)
+    user_dashboard['posts'].append(postingan)
 
 # Tampilkan dashboard sesuai input user
 tampilan_dashboard(user_dashboard) 

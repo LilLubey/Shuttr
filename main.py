@@ -1,18 +1,18 @@
 # Fungsi untuk menampilkan dashboard
-def show_dashboard(user_data):
+def tampilan_dashboard(data_user):
     print("="*40)
-    print(f"Dashboard User: {user_data['username']}")
+    print(f"Dashboard : {data_user['username']}")
     print("="*40)
-    print(f"Total Postingan : {len(user_data['posts'])}")
-    print(f"Total Komentar  : {user_data['total_comment']}\n")
+    print(f"Total postingan : {len(data_user['posts'])}")
+    print(f"Total komentar  : {data_user['total_comment']}\n")
 
-    print("Post Terbaru:")
-    for post in user_data['posts'][-5:]:  # menampilkan 5 post terbaru
+    print("Postingan terbaru:")
+    for post in data_user['posts'][-5:]:  # menampilkan 5 postingan terbaru
         print(f"- {post}")
     
     print("="*40)
 
-# Inisialisasi data user
+# input data user
 input_username = input("Masukkan nama user: ")
 user_dashboard = {
     "username": input_username,
@@ -22,10 +22,10 @@ user_dashboard = {
 
 # Input postingan baru
 while True:
-    new_post = input("Masukkan judul postingan baru (ketik 'selesai' untuk berhenti): ")
-    if new_post.lower() == "selesai":
+    postingan = input("masukkan judul postingan baru dan ketik 'selesai' untuk berhenti: ")
+    if postingan.lower() == "selesai":
         break
-    user_dashboard['posts'].append(new_post)
+    user_dashboard['postingan'].append(postingan)
 
 # Tampilkan dashboard sesuai input user
-show_dashboard(user_dashboard)
+tampilan_dashboard(user_dashboard) 

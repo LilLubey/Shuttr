@@ -1,17 +1,23 @@
 from components.post import create_post
 from components.profile import show_profile
 from components.search import search_post
-from components.profile import show_profile
+from components.logout import logout
+from components.auth import get_current_user
 
 def header(title):
     print("\n" + "=" * 30)
     print(title.center(30))
     print("=" * 30)
 
-def dashboard(username):
+def dashboard():
+    user = get_current_user()
+    if not user:
+        print("❌ Silakan login terlebih dahulu")
+        return
+
     while True:
         header("MENU DASHBOARD")
-        print(f"Login sebagai: {username}\n")
+        print(f"Login sebagai: {user}\n")
 
         print("1. Post forum")
         print("2. Profil")
@@ -21,16 +27,16 @@ def dashboard(username):
         choice = input("\nPilih menu: ").strip()
 
         if choice == "1":
-            create_post(username)
+            create_post(user)
 
         elif choice == "2":
-            username = show_profile(username)  # ⬅️ PENTING: update username
+            show_profile(user)
 
         elif choice == "3":
             search_post()
 
         elif choice == "0":
-            print("\n👋 Logout berhasil")
+            logout()
             break
 
         else:

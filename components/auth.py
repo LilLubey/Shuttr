@@ -4,6 +4,16 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CREDENTIALS_PATH = os.path.join(BASE_DIR, "data", "credentials.csv")
 
+current_user = None
+
+def set_current_user(user):
+    global current_user
+    current_user = user
+
+def get_current_user():
+    return current_user
+
+
 def login():
     if not os.path.exists(CREDENTIALS_PATH) or os.path.getsize(CREDENTIALS_PATH) == 0:
         print("❌ Belum ada user terdaftar")
@@ -24,6 +34,7 @@ def login():
     ]
 
     if not match.empty:
+        set_current_user(username)   
         print("\n✅ Login berhasil")
         return username
     else:

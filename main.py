@@ -1,31 +1,59 @@
-# Fungsi untuk menampilkan dashboard
-def tampilan_dashboard(data_user):
-    print("="*40)
-    print(f"Dashboard : {data_user['username']}")
-    print("="*40)
-    print(f"Total postingan : {len(data_user['posts'])}")
-    print(f"Total komentar  : {data_user['total_comment']}\n")
+from components.auth import login
+from components.register import register
+from components.rbac import check_access
 
-    print("Postingan terbaru:")
-    for post in data_user['posts'][-5:]:  # menampilkan 5 postingan terbaru
-        print(f"- {post}")
-    
-    print("="*40)
+def header(title):
+    print("\n" + "=" * 30)
+    print(f"{title.center(30)}")
+    print("=" * 30)
 
-# input data user
-input_username = input("Masukkan nama user: ")
-user_dashboard = {
-    "username": input_username,
-    "total_comment": 34,
-    "posts": []  # list untuk menyimpan postingan
-}
+def feature_menu(username):
+    header("MENU FITUR")
+    print("1. Read Data")
+    print("2. Write Data")
+    print("3. Delete Data")
+    print("0. Logout")
 
-# Input postingan baru
-while True:
-    postingan = input("masukkan judul postingan baru dan ketik 'selesai' untuk berhenti: ")
-    if postingan.lower() == "selesai":
-        break
-    user_dashboard['posts'].append(postingan)
+    choice = input("Pilih menu: ")
 
-# Tampilkan dashboard sesuai input user
-tampilan_dashboard(user_dashboard) 
+    actions = {
+        "1": "read_data",
+        "2": "write_data",
+        "3": "delete_data"
+    }
+
+    if choice == "0":
+        return
+
+    action = actions.get(choice)
+    if action:
+        check_access(username, action)
+    else:
+        print("❌ Menu tidak valid")
+
+def main():
+    while True:
+        header("PROGRAM SHUTTR CLI")
+        print("1. Login")
+        print("2. Register")
+        print("3. Keluar")
+
+        choice = input("Pilih menu: ")
+
+        if choice == "1":
+            username = login()
+            if username:
+                feature_menu(username)
+
+        elif choice == "2":
+            register()
+
+        elif choice == "3":
+            print("\n👋 Keluar dari program")
+            break
+
+        else:
+            print("\n❌ Pilihan tidak valid")
+
+if __name__ == "__main__":
+    main()

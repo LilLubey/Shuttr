@@ -21,7 +21,7 @@ def show_profile(username):
         elif choice == "0":
             return username
         else:
-            print("\n❌ Menu tidak valid")
+            print("\n Menu tidak valid")
 
 def change_username(old_username):
     df = pd.read_csv(CREDENTIALS_PATH)
@@ -29,15 +29,15 @@ def change_username(old_username):
     new_username = input("\nMasukkan username baru: ").strip()
 
     if not new_username:
-        print("❌ Username tidak boleh kosong")
+        print(" Username tidak boleh kosong")
         return old_username
 
     if (df["username"] == new_username).any():
-        print("❌ Username sudah digunakan")
+        print(" Username sudah digunakan")
         return old_username
 
     df.loc[df["username"] == old_username, "username"] = new_username
     df.to_csv(CREDENTIALS_PATH, index=False)
 
-    print("\n✅ Username berhasil diubah")
+    print("\n Username berhasil diubah")
     return new_username

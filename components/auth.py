@@ -9,23 +9,52 @@ def login():
         print("❌ Belum ada user terdaftar")
         return None
 
-    df = pd.read_csv(CREDENTIALS_PATH)
-    df = df.astype(str).apply(lambda col: col.str.strip())
+    df = pd.read_csv(CREDENTIALS_PATH, dtype=str)
+    df.columns = df.columns.str.strip()
+    df = df.apply(lambda col: col.map(lambda x: x.strip() if isinstance(x, str) else x))
 
-    print("\n=== LOGIN ===")
-    email = input("Email    : ").strip()
-    username = input("Username : ").strip()
-    password = input("Password : ").strip()
+    print("\n========================")
+    print("         LOGIN          ")
+    print("========================")
 
-    match = df[
-        (df["email"] == email) &
-        (df["username"] == username) &
-        (df["password"] == password)
-    ]
+    email = input("Email (opsional)    : ").strip()
+    username = input("Username (opsional) : ").strip()
+    password = input("Password            : ").strip()
 
-    if not match.empty:
-        print("\n✅ Login berhasil")
-        return username
-    else:
-        print("\n❌ Login gagal")
+    # 1️⃣ VALIDASI INPUT
+    if not password:
+        print("❌ Password wajib diisi")
         return None
+
+    if not email and not username:
+        print("❌ Isi email atau username")
+        return None
+
+    # 2️⃣ LOGIN DENGAN EMAIL
+    if email:
+        match = df[
+            (df["email"] == email) &
+            (df["password"] == password)
+        ]
+
+        if not match.empty:
+            print("\n✅ Login berhasil")
+            return match.iloc[0]["username"]
+        else:
+            print("\n❌ Email atau password salah")
+            return None
+
+    # 3️⃣ LOGIN DENGAN USERNAME
+    if username:
+        match = df[
+            (df["username"] == username) &
+            (df["password"] == password)
+        ]
+
+        if not match.empty:
+            print("\n✅ Login berhasil")
+            return username
+        else:
+            print("\n❌ Username atau password salah")
+            return None
+

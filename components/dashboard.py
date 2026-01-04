@@ -1,7 +1,8 @@
 from components.post import create_post
 from components.profile import show_profile
 from components.search import search_post
-from components.profile import show_profile
+from components.post import list_posts
+from components.post import delete_post
 
 def header(title):
     print("\n" + "=" * 30)
@@ -14,8 +15,10 @@ def dashboard(username):
         print(f"Login sebagai: {username}\n")
 
         print("1. Post forum")
-        print("2. Profil")
+        print("2. Lihat postingan")
         print("3. Cari postingan")
+        print("4. Hapus postingan saya")
+        print("5. Profil")
         print("0. Logout")
 
         choice = input("\nPilih menu: ").strip()
@@ -24,14 +27,20 @@ def dashboard(username):
             create_post(username)
 
         elif choice == "2":
-            username = show_profile(username)  # ⬅️ PENTING: update username
+            list_posts()
 
         elif choice == "3":
-            search_post()
+            search_post()  
+
+        elif choice == "4":
+            delete_post(username)
+
+        elif choice == "5":
+            username = show_profile(username)
 
         elif choice == "0":
-            print("\n👋 Logout berhasil")
+            print("\n Logout berhasil")
             break
 
         else:
-            print("\n❌ Menu tidak valid")
+            print("\n Menu tidak valid")

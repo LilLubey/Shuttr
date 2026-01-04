@@ -14,19 +14,25 @@ def register():
         username = input("Username : ").strip()
         password = input("Password : ").strip()
 
-        # 1️⃣ VALIDASI FIELD KOSONG
-        if not email or not username or not password:
-            print("\n❌ Semua field WAJIB diisi.\n")
+        # 1️⃣ VALIDASI FIELD KOSONG (SPESIFIK)
+        if not email:
+            print(" Email tidak boleh kosong")
+            continue
+        if not username:
+            print(" Username tidak boleh kosong")
+            continue
+        if not password:
+            print(" Password tidak boleh kosong")
             continue
 
         # 2️⃣ VALIDASI FORMAT EMAIL
         if "@" not in email or "." not in email:
-            print("\n❌ Format email tidak valid.\n")
+            print(" Format email tidak valid")
             continue
 
-        # 3️⃣ VALIDASI PANJANG PASSWORD
+        # 3️⃣ VALIDASI PASSWORD
         if len(password) < 6:
-            print("\n❌ Password minimal 6 karakter.\n")
+            print(" Password minimal 6 karakter")
             continue
 
         # Load data
@@ -36,12 +42,15 @@ def register():
             df = pd.read_csv(CREDENTIALS_PATH)
             df = df.astype(str).apply(lambda col: col.str.strip())
 
-        # 4️⃣ VALIDASI DUPLIKAT
-        if ((df["email"] == email) | (df["username"] == username)).any():
-            print("\n❌ Email atau username sudah terdaftar.\n")
+        # 4️⃣ VALIDASI DUPLIKAT (SPESIFIK)
+        if (df["email"] == email).any():
+            print(" Email sudah terdaftar")
+            continue
+        if (df["username"] == username).any():
+            print(" Username sudah terdaftar")
             continue
 
-        # Simpan user baru
+        # Simpan user
         new_user = pd.DataFrame(
             [[email, username, password]],
             columns=["email", "username", "password"]

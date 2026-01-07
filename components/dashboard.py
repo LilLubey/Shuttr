@@ -15,7 +15,7 @@ def dashboard(username):
         print(f"Login sebagai: {username}\n")
 
         print("1. Post forum")
-        print("2. Lihat postingan")
+        print("2. Lihat semua postingan")
         print("3. Cari postingan")
         print("4. Hapus postingan saya")
         print("5. Profil")
@@ -39,8 +39,8 @@ def dashboard(username):
             username = show_profile(username)
 
         elif choice == "0":
-            print("\n Logout berhasil")
+            print("\n- Logout berhasil")
             break
 
         else:
-            print("\n Menu tidak valid")
+            print("\n- Menu tidak valid")

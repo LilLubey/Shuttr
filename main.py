@@ -25,11 +25,11 @@ def main():
             register()
 
         elif choice == "3":
-            print("\nKeluar dari program")
+            print("\n- Keluar dari program")
             break
 
         else:
-            print("\nPilihan tidak valid")
+            print("\n- Pilihan tidak valid")
 
 if __name__ == "__main__":
     main()

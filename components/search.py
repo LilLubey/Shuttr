@@ -6,13 +6,13 @@ POST_PATH = os.path.join(BASE_DIR, "data", "posts.csv")
 
 def search_post():
     if not os.path.exists(POST_PATH):
-        print("\n Belum ada postingan")
+        print("\n- Belum ada postingan")
         return
 
     keyword = input("\nCari kata kunci: ").strip().lower()
 
     if not keyword:
-        print(" Kata kunci tidak boleh kosong")
+        print("- Kata kunci tidak boleh kosong")
         return
 
     df = pd.read_csv(POST_PATH)
@@ -23,7 +23,7 @@ def search_post():
     ]
 
     if results.empty:
-        print("\n Postingan tidak ditemukan")
+        print("\n- Postingan tidak ditemukan")
         return
 
     print("\n========================")

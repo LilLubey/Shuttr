@@ -1,7 +1,0 @@
-role,action
-admin,read_data
-admin,write_data
-admin,delete_data
-user,read_data
-user,write_data
-guest,read_data
